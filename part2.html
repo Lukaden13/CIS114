@@ -7,55 +7,61 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Salesperson's Earnings</h1>
+    <h1>Salesperson Earnings Calculator</h1>
     <form id="salesForm">
         <label for="salespersonName">Salesperson's Name:</label>
         <input type="text" id="salespersonName" required><br><br>
-        
-        <!-- Input fields for item quantities (use input type="number") -->
-        <!-- ... (input fields for quantities for items 1 to 4) ... -->
-        
-        <button type="button" id="calculateEarningsButton">Calculate Earnings</button>
-        <button type="button" id="clearSalesFormButton">Clear</button>
+
+        <label for="item1Qty">Quantity Sold for Item 1:</label>
+        <input type="number" id="item1Qty" min="0" required><br><br>
+
+        <label for="item2Qty">Quantity Sold for Item 2:</label>
+        <input type="number" id="item2Qty" min="0" required><br><br>
+
+        <label for="item3Qty">Quantity Sold for Item 3:</label>
+        <input type="number" id="item3Qty" min="0" required><br><br>
+
+        <label for="item4Qty">Quantity Sold for Item 4:</label>
+        <input type="number" id="item4Qty" min="0" required><br><br>
+
+        <button type="button" id="calculateButton">Calculate Earnings</button><br><br>
+
+        <label for="totalSold">Total Sold (Dollars):</label>
+        <input type="text" id="totalSold" readonly style="text-align: right;"><br><br>
+
+        <label for="totalEarnings">Total Earnings:</label>
+        <input type="text" id="totalEarnings" readonly style="text-align: right;"><br><br>
     </form>
-    <div id="earningsResult" style="text-align: right;"></div>
+
     <a href="hw3.html">Back to Homework 3 Main Page</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const salespersonNameInput = document.getElementById("salespersonName");
-            // Add similar variables for the input fields of quantities for items 1 to 4
+            const salesForm = document.getElementById("salesForm");
+            const item1Qty = document.getElementById("item1Qty");
+            const item2Qty = document.getElementById("item2Qty");
+            const item3Qty = document.getElementById("item3Qty");
+            const item4Qty = document.getElementById("item4Qty");
+            const totalSoldInput = document.getElementById("totalSold");
+            const totalEarningsInput = document.getElementById("totalEarnings");
 
-            const calculateEarningsButton = document.getElementById("calculateEarningsButton");
-            const clearSalesFormButton = document.getElementById("clearSalesFormButton");
-            const earningsResultDiv = document.getElementById("earningsResult");
+            document.getElementById("calculateButton").addEventListener("click", function () {
+                const qty1 = parseInt(item1Qty.value) || 0;
+                const qty2 = parseInt(item2Qty.value) || 0;
+                const qty3 = parseInt(item3Qty.value) || 0;
+                const qty4 = parseInt(item4Qty.value) || 0;
 
-            calculateEarningsButton.addEventListener("click", calculateEarnings);
-            clearSalesFormButton.addEventListener("click", clearSalesForm);
+                const item1Price = 20.99;
+                const item2Price = 12.75;
+                const item3Price = 9.95;
+                const item4Price = 35.89;
 
-            function calculateEarnings() {
-                // Retrieve values from input fields
-                const salespersonName = salespersonNameInput.value;
-                // Retrieve quantities for items 1 to 4
+                const totalSold = qty1 * item1Price + qty2 * item2Price + qty3 * item3Price + qty4 * item4Price;
+                const totalEarnings = 250 + (totalSold * 0.09);
 
-                // Check for valid input
-                // Validate input for quantities (ensure they are non-negative numbers)
-
-                // Calculate total sales
-                // Calculate earnings based on the provided formula
-
-                // Display results (right-justified with 2 decimal places)
-                earningsResultDiv.innerHTML = `
-                    <p>${salespersonName}'s Earnings</p>
-                    <!-- Display total sales and total earnings for the salesperson -->
-                `;
-            }
-
-            function clearSalesForm() {
-                salespersonNameInput.value = "";
-                // Clear quantities for items 1 to 4
-                earningsResultDiv.innerHTML = "";
-            }
+                totalSoldInput.value = totalSold.toFixed(2);
+                totalEarningsInput.value = totalEarnings.toFixed(2);
+            });
         });
     </script>
 </body>
