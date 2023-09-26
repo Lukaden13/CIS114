@@ -2,14 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="CIS 114 Homework 2 - Part 1">
-    <title>Part 1</title>
+    <meta name="description" content="CIS 114 Homework 3 - Part 1">
+    <title>Homework 3 - Part 1</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="part1.js" defer></script>
 </head>
 <body>
-    <h1>Part 1</h1>
-    <div id="output"></div>
-    <a href="hw2.html">Back to Homework 2 Main Page</a>
+    <h1>Student Grades</h1>
+    <form id="gradesForm">
+        <label for="hwAvg">Homework Average:</label>
+        <input type="number" id="hwAvg" required min="0" max="100"><br><br>
+        
+        <label for="midExam">Mid-Term Exam Score:</label>
+        <input type="number" id="midExam" required min="0" max="100"><br><br>
+        
+        <label for="finalExam">Final Exam Score:</label>
+        <input type="number" id="finalExam" required min="0" max="100"><br><br>
+        
+        <label for="participation">Participation:</label>
+        <input type="number" id="participation" required min="0" max="100"><br><br>
+        
+        <button type="button" id="calculateButton">Calculate</button>
+        <button type="button" id="clearButton">Clear</button>
+    </form>
+    <textarea id="result" readonly></textarea>
+    <a href="hw3.html">Back to Homework 3 Main Page</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hwAvgInput = document.getElementById("hwAvg");
+            const midExamInput = document.getElementById("midExam");
+            const finalExamInput = document.getElementById("finalExam");
+            const participationInput = document.getElementById("participation");
+            const calculateButton = document.getElementById("calculateButton");
+            const clearButton = document.getElementById("clearButton");
+            const resultTextArea = document.getElementById("result");
+
+            calculateButton.addEventListener("click", calculateGrade);
+            clearButton.addEventListener("click", clearForm);
+
+            function calculateGrade() {
+                // Retrieve values from input fields
+                const hwAvg = parseFloat(hwAvgInput.value);
+                const midExam = parseFloat(midExamInput.value);
+                const finalExam = parseFloat(finalExamInput.value);
+                const participation = parseFloat(participationInput.value);
+
+                // Check for valid input
+                if (isNaN(hwAvg) || isNaN(midExam) || isNaN(finalExam) || isNaN(participation) ||
+                    hwAvg < 0 || hwAvg > 100 || midExam < 0 || midExam > 100 ||
+                    finalExam < 0 || finalExam > 100 || participation < 0 || participation > 100) {
+                    resultTextArea.value = "Invalid input. Please enter valid numbers between 0 and 100.";
+                    return;
+                }
+
+                // Calculate final average
+                const finalAverage = Math.round((0.5 * hwAvg) + (0.2 * midExam) + (0.2 * finalExam) + (0.1 * participation));
+
+                // Determine letter grade
+                let letterGrade;
+                if (finalAverage >= 90) {
+                    letterGrade = "A";
+                } else if (finalAverage >= 80) {
+                    letterGrade = "B";
+                } else if (finalAverage >= 70) {
+                    letterGrade = "C";
+                } else if (finalAverage >= 60) {
+                    letterGrade = "D";
+                } else {
+                    letterGrade = "F";
+                }
+
+                // Display results
+                resultTextArea.value = `Final Average: ${finalAverage}\nLetter Grade: ${letterGrade}`;
+            }
+
+            function clearForm() {
+                hwAvgInput.value = "";
+                midExamInput.value = "";
+                finalExamInput.value = "";
+                participationInput.value = "";
+                resultTextArea.value = "";
+            }
+        });
+    </script>
 </body>
 </html>
