@@ -7,78 +7,66 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Multiplication Game</h1>
-    <div id="questionDiv">
-        <p id="question"></p>
-        <input type="number" id="answer" placeholder="Your Answer">
-        <button id="checkButton">Check</button>
-    </div>
-    <div id="resultDiv">
-        <textarea id="gameResult" readonly></textarea>
-    </div>
+    <h1>Multiplication Practice</h1>
+    <form id="multiplicationForm">
+        <label for="question">Question:</label>
+        <span id="question"></span><br><br>
+
+        <label for="answer">Your Answer:</label>
+        <input type="number" id="answer" required><br><br>
+
+        <button type="button" id="checkButton">Check Answer</button><br><br>
+
+        <span id="resultMessage"></span><br><br>
+
+        <button type="button" id="playAgainButton">Play Again</button>
+    </form>
+
     <a href="hw3.html">Back to Homework 3 Main Page</a>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const questionDiv = document.getElementById("questionDiv");
-            const questionText = document.getElementById("question");
+            const multiplicationForm = document.getElementById("multiplicationForm");
+            const questionSpan = document.getElementById("question");
             const answerInput = document.getElementById("answer");
+            const resultMessageSpan = document.getElementById("resultMessage");
             const checkButton = document.getElementById("checkButton");
-            const resultTextarea = document.getElementById("gameResult");
+            const playAgainButton = document.getElementById("playAgainButton");
 
-            let score = 0;
-            let attempts = 0;
+            let correctAnswer;
+            let playing = false;
 
             function generateQuestion() {
-                const num1 = Math.floor(Math.random() * 10); // Random number from 0 to 9
+                const num1 = Math.floor(Math.random() * 10);
                 const num2 = Math.floor(Math.random() * 10);
-                const correctAnswer = num1 * num2;
-
-                return {
-                    question: `How much is ${num1} times ${num2}?`,
-                    answer: correctAnswer,
-                };
+                correctAnswer = num1 * num2;
+                questionSpan.textContent = `How much is ${num1} times ${num2}?`;
             }
 
-            function displayQuestion() {
-                const { question, answer } = generateQuestion();
-                questionText.textContent = question;
-                return answer;
-            }
+            checkButton.addEventListener("click", function () {
+                if (!playing) {
+                    resultMessageSpan.textContent = "Click 'Play Again' to start a new game.";
+                    return;
+                }
 
-            function checkAnswer() {
                 const userAnswer = parseInt(answerInput.value);
 
-                if (!isNaN(userAnswer)) {
-                    const correctAnswer = displayQuestion();
-
-                    if (userAnswer === correctAnswer) {
-                        score++;
-                        resultTextarea.value = "Very good! Your answer is correct.";
-                    } else {
-                        resultTextarea.value = "No. Please try again.";
-                    }
-
-                    attempts++;
-                    const continuePlaying = confirm("Do you want to play again?");
-
-                    if (continuePlaying) {
-                        displayQuestion();
-                        answerInput.value = "";
-                        resultTextarea.value = "";
-                    } else {
-                        resultTextarea.value = `Game Over!\nScore: ${score}/${attempts}`;
-                        questionDiv.style.display = "none";
-                    }
+                if (userAnswer === correctAnswer) {
+                    resultMessageSpan.textContent = "Very good! That's the correct answer.";
                 } else {
-                    resultTextarea.value = "Please enter a valid number.";
+                    resultMessageSpan.textContent = "No. Please try again.";
                 }
-            }
+            });
 
-            checkButton.addEventListener("click", checkAnswer);
+            playAgainButton.addEventListener("click", function () {
+                playing = true;
+                answerInput.value = "";
+                resultMessageSpan.textContent = "";
+                generateQuestion();
+            });
 
             // Initialize the game
-            displayQuestion();
+            generateQuestion();
         });
     </script>
 </body>
