@@ -44,6 +44,7 @@
             const item4Qty = document.getElementById("item4Qty");
             const totalSoldInput = document.getElementById("totalSold");
             const totalEarningsInput = document.getElementById("totalEarnings");
+            const salespersonName = document.getElementById("salespersonName");
 
             document.getElementById("calculateButton").addEventListener("click", function () {
                 const qty1 = parseInt(item1Qty.value) || 0;
@@ -61,6 +62,10 @@
 
                 totalSoldInput.value = totalSold.toFixed(2);
                 totalEarningsInput.value = totalEarnings.toFixed(2);
+
+                // Display salesperson's name along with earnings
+                const name = salespersonName.value;
+                totalEarningsInput.value = `${name}'s Earnings: $${totalEarnings.toFixed(2)}`;
             });
         });
     </script>
