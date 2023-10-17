@@ -2,65 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Extra Credit - Draw a Hollow Square">
+    <meta name="description" content="Homework 4 - Extra Credit">
     <title>Homework 4 - Extra Credit</title>
-    <style>
-        /* Add your CSS for the square here */
-    </style>
 </head>
 <body>
-    <h1>Extra Credit - Draw a Hollow Square</h1>
-
-    <form id="squareForm">
-        <label for="sizeInput">Enter a number (2-10):</label>
-        <input type="number" id="sizeInput" min="2" max="10" required>
-        <button type="button" id="drawButton">Draw Square</button>
-        <button type="button" id="clearButton">Clear</button>
+    <h1>Extra Credit - Hollow Square</h1>
+    
+    <form>
+        <label for="size">Enter a number (2-10): </label>
+        <input type="number" id="size" min="2" max="10">
+        <button type="button" onclick="drawSquare()">Draw Square</button>
+        <button type="button" onclick="clearSquare()">Clear</button>
     </form>
 
-    <div id="square"></div>
-    <p id="error" style="color: red;"></p>
-
-    <a href="index.html">Back to Homework 4 Main Page</a>
+    <div id="squareResult"></div>
 
     <script>
-        const squareForm = document.getElementById("squareForm");
-        const sizeInput = document.getElementById("sizeInput");
-        const drawButton = document.getElementById("drawButton");
-        const clearButton = document.getElementById("clearButton");
-        const squareDiv = document.getElementById("square");
-        const errorParagraph = document.getElementById("error");
+        function drawSquare() {
+            const size = parseInt(document.getElementById('size').value);
+            const squareResult = document.getElementById('squareResult');
 
-        drawButton.addEventListener("click", () => {
-            const size = parseInt(sizeInput.value);
+            // Clear previous result
+            squareResult.textContent = '';
+
             if (isNaN(size) || size < 2 || size > 10) {
-                errorParagraph.textContent = "Please enter a valid number between 2 and 10.";
-                squareDiv.innerHTML = "";
+                squareResult.textContent = 'Please enter a valid number between 2 and 10.';
             } else {
-                errorParagraph.textContent = "";
-                drawSquare(size);
-            }
-        });
-
-        clearButton.addEventListener("click", () => {
-            sizeInput.value = "";
-            errorParagraph.textContent = "";
-            squareDiv.innerHTML = "";
-        });
-
-        function drawSquare(size) {
-            let squareHTML = "";
-            for (let row = 1; row <= size; row++) {
-                for (let col = 1; col <= size; col++) {
-                    if (row === 1 || row === size || col === 1 || col === size) {
-                        squareHTML += "* ";
-                    } else {
-                        squareHTML += "&nbsp;&nbsp;";
+                for (let i = 1; i <= size; i++) {
+                    let row = '';
+                    for (let j = 1; j <= size; j++) {
+                        if (i === 1 || i === size || j === 1 || j === size) {
+                            row += '* ';
+                        } else {
+                            row += '  ';
+                        }
                     }
+                    squareResult.textContent += row + '\n';
                 }
-                squareHTML += "<br>";
             }
-            squareDiv.innerHTML = squareHTML;
+        }
+
+        function clearSquare() {
+            document.getElementById('size').value = '';
+            document.getElementById('squareResult').textContent = '';
         }
     </script>
 </body>
