@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Extra Credit - Draw a Hollow Square">
+    <title>Homework 4 - Extra Credit</title>
+    <style>
+        /* Add your CSS for the square here */
+    </style>
+</head>
+<body>
+    <h1>Extra Credit - Draw a Hollow Square</h1>
+
+    <form id="squareForm">
+        <label for="sizeInput">Enter a number (2-10):</label>
+        <input type="number" id="sizeInput" min="2" max="10" required>
+        <button type="button" id="drawButton">Draw Square</button>
+        <button type="button" id="clearButton">Clear</button>
+    </form>
+
+    <div id="square"></div>
+    <p id="error" style="color: red;"></p>
+
+    <a href="index.html">Back to Homework 4 Main Page</a>
+
+    <script>
+        const squareForm = document.getElementById("squareForm");
+        const sizeInput = document.getElementById("sizeInput");
+        const drawButton = document.getElementById("drawButton");
+        const clearButton = document.getElementById("clearButton");
+        const squareDiv = document.getElementById("square");
+        const errorParagraph = document.getElementById("error");
+
+        drawButton.addEventListener("click", () => {
+            const size = parseInt(sizeInput.value);
+            if (isNaN(size) || size < 2 || size > 10) {
+                errorParagraph.textContent = "Please enter a valid number between 2 and 10.";
+                squareDiv.innerHTML = "";
+            } else {
+                errorParagraph.textContent = "";
+                drawSquare(size);
+            }
+        });
+
+        clearButton.addEventListener("click", () => {
+            sizeInput.value = "";
+            errorParagraph.textContent = "";
+            squareDiv.innerHTML = "";
+        });
+
+        function drawSquare(size) {
+            let squareHTML = "";
+            for (let row = 1; row <= size; row++) {
+                for (let col = 1; col <= size; col++) {
+                    if (row === 1 || row === size || col === 1 || col === size) {
+                        squareHTML += "* ";
+                    } else {
+                        squareHTML += "&nbsp;&nbsp;";
+                    }
+                }
+                squareHTML += "<br>";
+            }
+            squareDiv.innerHTML = squareHTML;
+        }
+    </script>
+</body>
+</html>

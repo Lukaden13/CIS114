@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Part 1 - Calculate Products and Sums">
+    <title>Homework 4 - Part 1</title>
+</head>
+<body>
+    <h1>Part 1 - Calculate Products and Sums</h1>
+
+    <h2>For Loop</h2>
+    <p id="forResults"></p>
+
+    <h2>While/Do-While Loop</h2>
+    <p id="whileResults"></p>
+
+    <a href="index.html">Back to Homework 4 Main Page</a>
+
+    <script>
+        // Part 1 - For Loop
+        let forProduct = 1;
+        let forSum = 0;
+        for (let i = 5; i <= 25; i += 4) {
+            forProduct *= i;
+            forSum += i;
+        }
+        document.getElementById("forResults").textContent = `The result of products: ${forProduct.toLocaleString()} | Sum: ${forSum.toLocaleString()}`;
+
+        // Part 1 - While/Do-While Loop
+        let whileProduct = 1;
+        let whileSum = 0;
+        let currentNum = 3;
+        while (currentNum <= 18) {
+            whileProduct *= currentNum;
+            whileSum += currentNum;
+            currentNum += 3;
+        }
+        document.getElementById("whileResults").textContent = `The result of products: ${whileProduct.toLocaleString()} | Sum: ${whileSum.toLocaleString()}`;
+    </script>
+</body>
+</html>

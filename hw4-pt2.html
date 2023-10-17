@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Part 2 - Compound Interest Tables">
+    <title>Homework 4 - Part 2</title>
+    <style>
+        /* Add your CSS for alternating row colors here */
+    </style>
+</head>
+<body>
+    <h1>Part 2 - Compound Interest Tables</h1>
+
+    <h2>Interest Rate: 5%</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Amount on Deposit</th>
+                <th>Interest Rate</th>
+            </tr>
+        </thead>
+        <tbody id="table5"></tbody>
+    </table>
+
+    <h2>Interest Rate: 6%</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Amount on Deposit</th>
+                <th>Interest Rate</th>
+            </tr>
+        </thead>
+        <tbody id="table6"></tbody>
+    </table>
+
+    <h2>Interest Rate: 7%</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Amount on Deposit</th>
+                <th>Interest Rate</th>
+            </tr>
+        </thead>
+        <tbody id="table7"></tbody>
+    </table>
+
+    <a href="index.html">Back to Homework 4 Main Page</a>
+
+    <script>
+        // Part 2 - Compound Interest Tables
+        for (let rate = 5; rate <= 7; rate++) {
+            const table = document.getElementById(`table${rate}`);
+            table.innerHTML = "<tr><td>Year</td><td>Amount on Deposit</td><td>Interest Rate</td></tr>";
+            let principal = 1000;
+            for (let year = 1; year <= 5; year++) {
+                const interest = principal * rate / 100;
+                principal += interest;
+                table.innerHTML += `<tr><td>${year}</td><td>${principal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td><td>${(rate / 100).toLocaleString()}</td></tr>`;
+            }
+        }
+    </script>
+</body>
+</html>
