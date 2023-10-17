@@ -6,43 +6,50 @@
     <title>Homework 4 - Part 1</title>
 </head>
 <body>
-    <h1>Part 1 - Calculate Products and Sums</h1>
+    <h1>Part 1 - For and While/Do-While Loops</h1>
     
     <h2>For Loop</h2>
-    <p>The result of products: <span id="productFor"></span> | Sum: <span id="sumFor"></span></p>
+    <div id="forResults"></div>
 
     <h2>While/Do-While Loop</h2>
-    <p>The result of products: <span id="productWhile"></span> | Sum: <span id="sumWhile"></span></p>
+    <div id="whileResults"></div>
 
     <script>
-        // Initialize variables for for loop
-        var productFor = 1;
-        var sumFor = 0;
-
-        for (var i = 5; i <= 25; i += 4) {
-            productFor *= i;
-            sumFor += i;
+        // For Loop
+        function calculateForLoop() {
+            let product = 1;
+            let sum = 0;
+            for (let i = 5; i <= 25; i += 4) {
+                product *= i;
+                sum += i;
+            }
+            return { product, sum };
         }
 
-        // Display results for for loop
-        document.getElementById('productFor').textContent = productFor.toLocaleString();
-        document.getElementById('sumFor').textContent = sumFor.toLocaleString();
+        const forResults = calculateForLoop();
+        document.getElementById('forResults').innerHTML = `
+            <p>The result of ${Array.from({ length: 7 }, (_, i) => 5 + i * 4).join(' * ')} is ${forResults.product.toLocaleString()}</p>
+            <p>The result of ${Array.from({ length: 7 }, (_, i) => 5 + i * 4).join(' + ')} is ${forResults.sum.toLocaleString()}</p>
+        `;
 
-        // Initialize variables for while/do-while loop
-        var productWhile = 1;
-        var sumWhile = 0;
-        var numWhile = 3;
-
-        // Calculate product and sum using while loop
-        while (numWhile <= 18) {
-            productWhile *= numWhile;
-            sumWhile += numWhile;
-            numWhile += 3;
+        // While/Do-While Loop
+        function calculateWhileLoop() {
+            let product = 1;
+            let sum = 0;
+            let i = 3;
+            while (i <= 18) {
+                product *= i;
+                sum += i;
+                i += 3;
+            }
+            return { product, sum };
         }
 
-        // Display results for while/do-while loop
-        document.getElementById('productWhile').textContent = productWhile.toLocaleString();
-        document.getElementById('sumWhile').textContent = sumWhile.toLocaleString();
+        const whileResults = calculateWhileLoop();
+        document.getElementById('whileResults').innerHTML = `
+            <p>The result of ${Array.from({ length: 6 }, (_, i) => 3 + i * 3).join(' * ')} is ${whileResults.product.toLocaleString()}</p>
+            <p>The result of ${Array.from({ length: 6 }, (_, i) => 3 + i * 3).join(' + ')} is ${whileResults.sum.toLocaleString()}</p>
+        `;
     </script>
 </body>
 </html>
