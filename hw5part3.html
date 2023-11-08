@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 3 - State Information Lookup</title>
+    <script>
+        // JavaScript Object holding state information
+        const stateInfo = {
+            "CA": { "name": "California", "capital": "Sacramento", "population": "39.14M" },
+            "TX": { "name": "Texas", "capital": "Austin", "population": "28.99M" },
+            "NY": { "name": "New York", "capital": "Albany", "population": "19.45M" },
+            "FL": { "name": "Florida", "capital": "Tallahassee", "population": "21.48M" },
+            "IL": { "name": "Illinois", "capital": "Springfield", "population": "12.67M" },
+            "PA": { "name": "Pennsylvania", "capital": "Harrisburg", "population": "12.80M" },
+            "OH": { "name": "Ohio", "capital": "Columbus", "population": "11.69M" },
+            "MI": { "name": "Michigan", "capital": "Lansing", "population": "9.986M" },
+            "GA": { "name": "Georgia", "capital": "Atlanta", "population": "10.62M" },
+            "NC": { "name": "North Carolina", "capital": "Raleigh", "population": "10.49M" },
+            "NJ": { "name": "New Jersey", "capital": "Trenton", "population": "8.882M" },
+            "VA": { "name": "Virginia", "capital": "Richmond", "population": "8.536M" },
+            "WA": { "name": "Washington", "capital": "Olympia", "population": "7.615M" },
+            "AZ": { "name": "Arizona", "capital": "Phoenix", "population": "7.278M" },
+            "MA": { "name": "Massachusetts", "capital": "Boston", "population": "6.893M" }
+            // Add states if needed more
+        };
+
+        // Function to display state information
+        function displayStateInfo() {
+            var selectedState = document.getElementById('stateDropdown').value;
+            var infoDisplay = document.getElementById('stateInfo');
+
+            if (stateInfo[selectedState]) {
+                // If the state is found in the object, display its information
+                infoDisplay.innerHTML = `<strong>${stateInfo[selectedState].name}</strong><br>
+                                         Capital: ${stateInfo[selectedState].capital}<br>
+                                         Population: ${stateInfo[selectedState].population}`;
+            } else {
+                // If the state is not found, display an error message
+                infoDisplay.textContent = 'State information not found.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Part 3 - State Information Lookup</h1>
+    <a href="hw5main.html">Back to Homework 5 Main Page</a>
+
+    <label for="stateDropdown">Select a state:</label>
+    <select id="stateDropdown" onchange="displayStateInfo()">
+        <option value="">Please select a state</option>
+        <option value="CA">California</option>
+        <option value="TX">Texas</option>
+        <!-- Add additional options for more states -->
+    </select>
+
+    <div id="stateInfo"></div>
+</body>
+</html>

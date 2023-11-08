@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 1 - Form with Validation</title>
+    <script>
+        // Function to handle form submission
+        function submitForm() {
+            // Get form elements
+            var name = document.getElementById('fullname').value;
+            var ageGroup = document.querySelector('input[name="ageGroup"]:checked');
+            var browsers = document.querySelectorAll('input[name="browser"]:checked');
+            var movieType = document.getElementById('movieType').value;
+            var outputArea = document.getElementById('outputArea');
+
+            // Validate form inputs
+            if (!name) {
+                outputArea.textContent = 'Please enter your full name.';
+                return false;
+            }
+            if (!ageGroup) {
+                outputArea.textContent = 'Please select your age group.';
+                return false;
+            }
+            if (browsers.length === 0) {
+                outputArea.textContent = 'Please select at least one browser.';
+                return false;
+            }
+            if (!movieType) {
+                outputArea.textContent = 'Please select your preferred type of movie.';
+                return false;
+            }
+
+            // If all validations pass
+            outputArea.textContent = 'Thanks, your data was submitted!';
+            return false; // Prevent actual form submission for demonstration purposes
+        }
+
+        // Function to clear the form and output area
+        function clearForm() {
+            document.getElementById('userForm').reset();
+            document.getElementById('outputArea').textContent = '';
+        }
+    </script>
+</head>
+<body>
+    <h1>Part 1 - User Information Form</h1>
+    <a href="hw5main.html">Back to Homework 5 Main Page</a>
+
+    <form id="userForm" onsubmit="return submitForm()">
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname"><br>
+
+        <p>Age Group:</p>
+        <!-- Radio buttons for age group -->
+        <input type="radio" id="age1" name="ageGroup" value="<21">
+        <label for="age1">Less than 21</label><br>
+        <input type="radio" id="age2" name="ageGroup" value="21-50">
+        <label for="age2">Between 21 and 50</label><br>
+        <input type="radio" id="age3" name="ageGroup" value=">50">
+        <label for="age3">Older than 50</label><br>
+
+        <p>Browsers Used:</p>
+        <!-- Checkboxes for browsers used -->
+        <input type="checkbox" id="firefox" name="browser" value="Firefox">
+        <label for="firefox">Firefox</label><br>
+        <input type="checkbox" id="edge" name="browser" value="Edge">
+        <label for="edge">Edge</label><br>
+        <input type="checkbox" id="chrome" name="browser" value="Chrome">
+        <label for="chrome">Chrome</label><br>
+        <input type="checkbox" id="safari" name="browser" value="Safari">
+        <label for="safari">Safari</label><br>
+
+        <label for="movieType">Preferred Movie Type:</label>
+        <!-- Dropdown for movie type selection -->
+        <select id="movieType" name="movieType">
+            <option value="">Select...</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Drama">Drama</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Science Fiction">Science Fiction</option>
+        </select><br>
+
+        <button type="submit">Submit</button>
+        <button type="button" onclick="clearForm()">Clear</button>
+    </form>
+
+    <div id="outputArea"></div>
+</body>
+</html>
