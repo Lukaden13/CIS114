@@ -2,50 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Part 2 - Navigation Menus</title>
+    <title>Part 2 - Pulldown Menus</title>
     <script>
-        // Function to navigate to a new page in another tab/window
-        function navigateTo(url) {
-            window.open(url, '_blank');
-        }
-
-        // Function to handle the selection of the first dropdown
-        function handleFirstDropdownChange(selectObject) {
-            var url = selectObject.value;
-            if(url) {
-                navigateTo(url);
+        // Function to navigate to the selected URL from the first dropdown
+        function navigateToSelectedUrl(selectedElement) {
+            const url = selectedElement.value;
+            if (url) {
+                // Open the selected URL in a new tab
+                window.open(url, '_blank');
             }
         }
 
-        // Function to handle the click of the button for the second dropdown
-        function onSecondDropdownButtonClick() {
-            var selectObject = document.getElementById('secondDropdown');
-            var url = selectObject.value;
-            if(url) {
-                navigateTo(url);
+        // Function to navigate to the selected URL from the second dropdown
+        function navigate() {
+            const selectElement = document.getElementById('manualNavigateSelect');
+            const url = selectElement.value;
+            if (url) {
+                // Open the selected URL in a new tab
+                window.open(url, '_blank');
             }
         }
     </script>
 </head>
 <body>
-    <h1>Part 2 - Navigation Menus</h1>
-    
-    <p>First Dropdown Menu (auto-navigate):</p>
-    <select onchange="handleFirstDropdownChange(this)">
-        <option value="">Please select</option>
-        <option value="http://www.example.com">Example 1</option>
-        <option value="http://www.example2.com">Example 2</option>
-        <option value="http://www.example3.com">Example 3</option>
+    <h1>Part 2 - Pulldown Menus</h1>
+    <a href="homework5.html">Back to Homework 5 Main Page</a>
+
+    <h2>Automatic Navigation Dropdown</h2>
+    <select onchange="navigateToSelectedUrl(this)">
+        <option value="">-- Select a destination --</option>
+        <option value="https://www.google.com">Google</option>
+        <option value="https://www.bing.com">Bing</option>
+        <option value="https://www.yahoo.com">Yahoo</option>
     </select>
 
-    <p>Second Dropdown Menu (click button to navigate):</p>
-    <select id="secondDropdown">
-        <option value="">Please select</option>
-        <option value="http://www.example4.com">Example 4</option>
-        <option value="http://www.example5.com">Example 5</option>
-        <option value="http://www.example6.com">Example 6</option>
+    <h2>Manual Navigation Dropdown</h2>
+    <select id="manualNavigateSelect">
+        <option value="">-- Select a destination --</option>
+        <option value="https://www.wikipedia.org">Wikipedia</option>
+        <option value="https://www.github.com">GitHub</option>
+        <option value="https://www.stackoverflow.com">Stack Overflow</option>
     </select>
-    <button onclick="onSecondDropdownButtonClick()">Go</button>
+    <button onclick="navigate()">Go</button>
 
 </body>
 </html>
