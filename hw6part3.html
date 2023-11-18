@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>Homework 6 - Part 3: Phone Number Formatting</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Include jQuery and jQuery Mask plugin for extra credit -->
+    <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include jQuery Mask Plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
             First 3 Digits: <input type="text" id="first3Digits" readonly>
             Last 4 Digits: <input type="text" id="last4Digits" readonly>
         </div>
-        <button type="button" onclick="formatPhoneNumber()">Format</button>
+        <button type="button" id="formatBtn">Format</button>
         <button type="reset">Clear</button>
     </form>
     <div id="phoneError"></div>
@@ -25,31 +26,31 @@
 
     <script>
         $(document).ready(function(){
-            // Apply to phone number input
+            // Apply the mask to your phone number input
             $('#phoneNumber').mask('(000) 000-0000');
 
-            // Format of the phone number
+            // Function to format the phone number
             function formatPhoneNumber() {
                 var phone = $('#phoneNumber').val();
                 var errorDiv = $('#phoneError');
                 var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
 
-                // Validate format
+                // Validate phone number format
                 if (!regex.test(phone)) {
                     errorDiv.text('Please enter the phone number in the format (999) 999-9999.');
                     return;
                 }
 
                 // Extract and display phone number parts
-                var matches = phone.match(regex);
                 $('#areaCode').val(phone.substring(1, 4));
                 $('#first3Digits').val(phone.substring(6, 9));
                 $('#last4Digits').val(phone.substring(10, 14));
                 errorDiv.text('');
             }
 
-            // Event listener
+            // Event listener for format button
             $('#formatBtn').click(formatPhoneNumber);
         });
     </script>
-
+</body>
+</html>
