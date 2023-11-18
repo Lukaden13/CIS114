@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 6 - Part 1: Number Calculations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Number Calculations</h1>
+    <form id="numberForm">
+        <input type="text" id="numberInput" placeholder="Enter a number with 4 decimals">
+        <button type="button" onclick="processNumber()">Submit</button>
+        <button type="reset">Clear</button>
+    </form>
+    <div id="result"></div>
+    <a href="hw6.html">Back to Homework 6 Main Page</a>
+
+    <script>
+        // Function to process the number input
+        function processNumber() {
+            var input = document.getElementById('numberInput').value;
+            var resultDiv = document.getElementById('result');
+            var number = parseFloat(input);
+
+            // Validate if the input has at least 4 decimal places
+            if (isNaN(number) || !input.match(/^\d+\.\d{4,}$/)) {
+                resultDiv.innerHTML = "You need to type a number with at least 4 decimals, please try again.";
+                return;
+            }
+
+            // Perform rounding operations
+            var roundedInt = Math.round(number);
+            var sqrtRounded = Math.round(Math.sqrt(number));
+            var roundedTenth = number.toFixed(1);
+            var roundedHundredth = number.toFixed(2);
+            var roundedThousandth = number.toFixed(3);
+
+            // Display results
+            resultDiv.innerHTML = "You typed number " + number + "<br>" +
+                "Rounded to the nearest integer = " + roundedInt + "<br>" +
+                "Square root rounded to integer = " + sqrtRounded + "<br>" +
+                "Rounded to the nearest 10th position = " + roundedTenth + "<br>" +
+                "Rounded to the nearest 100th position = " + roundedHundredth + "<br>" +
+                "Rounded to the nearest 1000th position = " + roundedThousandth;
+        }
+    </script>
+</body>
+</html>

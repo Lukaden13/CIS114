@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework 6 - Part 2: Character Count</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Character Count in Text</h1>
+    <form id="charCountForm">
+        <textarea id="textContent" placeholder="Type your content here"></textarea>
+        <input type="text" id="charInput" maxlength="1" placeholder="Enter a character">
+        <button type="button" onclick="countCharacter()">Submit</button>
+        <button type="reset">Clear</button>
+    </form>
+    <div id="charCountResult"></div>
+    <a href="hw6.html">Back to Homework 6 Main Page</a>
+
+    <script>
+        // To count occurrences of a character 
+        function countCharacter() {
+            var text = document.getElementById('textContent').value;
+            var char = document.getElementById('charInput').value;
+            var resultDiv = document.getElementById('charCountResult');
+
+            // Case-insensitive search
+            var count = (text.match(new RegExp(char, "gi")) || []).length;
+
+            if (count > 0) {
+                resultDiv.innerHTML = "Character '" + char + "' appears " + count + " times in the text.";
+            } else {
+                // Opens new window for error message
+                var errorWindow = window.open("", "ErrorWindow", "width=300,height=100");
+                errorWindow.document.write("Search character '" + char + "' not found in the content you typed.");
+                errorWindow.document.close();
+            }
+        }
+    </script>
+</body>
+</html>
