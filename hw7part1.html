@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 1 - Styling</title>
+    <script>
+        function applyStyle() {
+            var content = document.getElementById('content');
+            var bgColor = document.querySelector('input[name="bg-color"]:checked').value;
+            var bold = document.getElementById('bold').checked;
+            var italic = document.getElementById('italic').checked;
+            var underline = document.getElementById('underline').checked;
+            var fontSize = document.getElementById('font-size').value;
+
+            content.style.backgroundColor = bgColor;
+            content.style.fontWeight = bold ? 'bold' : 'normal';
+            content.style.fontStyle = italic ? 'italic' : 'normal';
+            content.style.textDecoration = underline ? 'underline' : 'none';
+            content.style.fontSize = fontSize;
+        }
+    </script>
+</head>
+<body>
+    <h1>Choose Your Style</h1>
+    <form id="styleForm">
+        Background Color:<br>
+        <input type="radio" name="bg-color" value="lightblue" onchange="applyStyle()" checked> Light Blue
+        <input type="radio" name="bg-color" value="lightgreen" onchange="applyStyle()"> Light Green<br>
+        Text Style:<br>
+        <input type="checkbox" id="bold" onchange="applyStyle()"> Bold
+        <input type="checkbox" id="italic" onchange="applyStyle()"> Italic
+        <input type="checkbox" id="underline" onchange="applyStyle()"> Underline<br>
+        Font Size:<br>
+        <select id="font-size" onchange="applyStyle()">
+            <option value="1em">Normal</option>
+            <option value="1.5em">Large</option>
+            <option value="2em">Extra Large</option>
+        </select>
+    </form>
+    <main id="content" style="border: 1px solid black; margin-top: 20px; padding: 10px;">
+        <p>Sample Text 1</p>
+        <p>Sample Text 2</p>
+        <p>Sample Text 3</p>
+    </main>
+    <a href="hw7.html">Back to Homework 7</a>
+</body>
+</html>

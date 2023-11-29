@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part 2 - Cookies</title>
+    <script>
+        window.onload = function() {
+            var name = getCookie("name");
+            var username = getCookie("username");
+
+            if (name != "" && username != "") {
+                document.getElementById("welcome").innerHTML = "Welcome Back, " + name + "!";
+                document.getElementById("form").style.display = "none";
+            } else {
+                document.getElementById("welcome").style.display = "none";
+            }
+        };
+
+        function setCookie(cname, cvalue) {
+            document.cookie = cname + "=" + cvalue + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function saveUserInfo() {
+            var name = document.getElementById("name").value;
+            var username = document.getElementById("username").value;
+            setCookie("name", name);
+            setCookie("username", username);
+        }
+    </script>
+</head>
+<body>
+    <h1 id="welcome"></h1>
+    <div id="form">
+        <h2>Enter your information</h2>
+        <input type="text" id="name" placeholder="Name"><br>
+        <input type="text" id="username" placeholder="Username"><br>
+        <button onclick="saveUserInfo()">Submit</button>
+    </div>
+    <a href="hw7.html">Back to Homework 7</a>
+</body>
+</html>
