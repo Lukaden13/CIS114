@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<body>
+
+<h1>Homework 8 - AJAX Application</h1>
+<a href="index.html">Back to Main Page</a>
+
+
+
+<button type="button" onclick="loadDoc()">Get CD collection</button>
+<br><br>
+<table id="demo"></table>
+
+<script>
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    myFunction(this);
+  }
+  xhttp.open("GET", "cd_catalog.xml");
+  xhttp.send();
+}
+function myFunction(xml) {
+  const xmlDoc = xml.responseXML;
+  const x = xmlDoc.getElementsByTagName("CD");
+  let table="<tr><th>Artist</th><th>Title</th></tr>";
+  for (let i = 0; i <x.length; i++) { 
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+  }
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
+
+<h2>Explanation of AJAX</h2>
+<p>AJAX (Asynchronous JavaScript and XML) is a technique used in web development to make asynchronous requests to a server without reloading the page. In this application, AJAX is used to fetch data from an XML file containing a CD collection. When the user clicks the 'Get CD collection' button, an AJAX call is made using the XMLHttpRequest object. This call requests the 'cd_catalog.xml' file, and upon successful retrieval, the response is processed and displayed in a table format on the page. This approach allows for a smoother user experience as the data is loaded without refreshing the entire page.</p>
+
+
+<h2>REST API: Stripe</h2>
+<p>Stripe is an API for integrating online payment processing into web and mobile applications, and especially important as I intend to use it for my business apirations. Stripe enables businesses to accept and manage online payments seamlessly.</p>
+<p>Stripe provides a JSON-based API, so it is easily compatible with modern web development. It supports a wide range of payment methods, including credit cards, bank transfers, and local payment options, and operates globally. The API is designed with a focus on security, ensuring safe transactions with strong encryption.</p>
+<p>Accessing Stripe's API requires an API key, obtainable through a Stripe account. Stripe offers comprehensive documentation and SDKs in various programming languages, aiding developers in integrating payment processing into their applications with minimal hassle.</p>
+<p>Stripe operates on a pay-as-you-go pricing model with transparent fees. Stripe's pricing is designed to scale with the size of the business, making it suitable for startups all the way to large corps.</p>
+<p>For detailed information, setup instructions, and best practices, refer to <a href="https://stripe.com/docs/api" target="_blank">Stripe's API documentation</a>.</p>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+var stripe = Stripe('your-publishable-key');
+var elements = stripe.elements();
+var card = elements.create('card');
+card.mount('#card-element');
+
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+function stripeTokenHandler(token) {
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  form.submit();
+}
+</script>
+
+<form id="payment-form">
+  <div id="card-element">
+    <!-- Elements will create input elements here -->
+  </div>
+
+  <div id="card-errors" role="alert"></div> 
+
+  <button>Submit Payment</button>
+</form>
